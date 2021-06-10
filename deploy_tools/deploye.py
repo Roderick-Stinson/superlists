@@ -14,7 +14,7 @@ def deploy():
     _get_latest_source(source_folder)
     _update_settings(source_folder, env.host)
     _update_virtualenv(source_folder)
-    _update_static_files(source_folder, env.host)
+    _update_static_files(source_folder)
     _update_database(source_folder)
 
 
@@ -33,7 +33,7 @@ def _get_latest_source(source_folder):
 
 
 def _update_settings(source_folder, site_name):
-    settings_path = source_folder = '/suplerlists/settings.py'
+    settings_path = source_folder + '/suplerlists/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
     sed(settings_path, 'ALLOWED_HOSTS =.+$', f'ALLOWED_HOSTS = ["{site_name}"]')
 
@@ -49,7 +49,7 @@ def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
         run(f'python3 -m venv {virtualenv_folder}')
-    run(f'{virtualenv_folder}/bin/pip install -r {source_folder}/requirements.txt')
+    run(f'{virtualenv_folder}/bin/pip install -r {source_folder}/requirenments.txt')
 
 
 def _update_static_files(source_folder):
@@ -62,5 +62,5 @@ def _update_static_files(source_folder):
 def _update_database(source_folder):
     run(
         f'cd {source_folder}'
-        ' && ../virtualenv/bin/pyhton manage.py migrate --noinput'
+        ' && ../virtualenv/bin/python manage.py migrate --noinput'
     )
