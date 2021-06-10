@@ -4,7 +4,7 @@ Description=Gunicorn server for SITENAME
 [Service]
 Restart=on-failure
 User=roderick
-WorkingDirectory=/home/roderick/sites/SITENAME/sources
+WorkingDirectory=/home/roderick/sites/SITENAME/source
 ExecStart=/home/roderick/sites/SITENAME/virtualenv/bin/gunicorn --bind unix:/tmp/SITENAME.socket suplerlists.wsgi:application
 
 [Install]
